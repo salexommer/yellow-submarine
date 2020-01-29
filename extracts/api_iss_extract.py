@@ -8,4 +8,5 @@ import json
 
 url = "https://wind-bow.glitch.me/twitch-api/channels/freecodecamp"
 JSONContent = requests.get(url).json()
-print(JSONContent)
+JSONDump = json.dumps(JSONContent, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=4, separators=None, default=None, sort_keys=False)
+print(JSONDump)
