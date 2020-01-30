@@ -34,7 +34,13 @@ for channel in channels:
     if 'error' not in JSONContent:
         channels_list.append([JSONContent['_id'], JSONContent['display_name'], JSONContent['status'],
                              JSONContent['followers'], JSONContent['views']])
-                         
+
+#Now let's format the array into a panda data frame, assign column names, re-define the index column                         
 dataset = pd.DataFrame(channels_list)
+dataset.columns = ['Id', 'Name', 'Status', 'Followers', 'Views']
+dataset.dropna(axis = 0, how = 'any', inplace = True)
+dataset.index = pd.RangeIndex(len(dataset.index))
 dataset_5 = dataset.sample(5)
-print(dataset_5)
+#print(dataset_5)
+export_csv = dataset.to_csv(path_or_buf='/home/salexommer/Documents/yellow-submarine/extracts/twitch_sample.csv',index=True)
+print("Export completed")
