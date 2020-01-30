@@ -34,7 +34,7 @@ for channel in channels:
     if 'error' not in JSONContent:
         channels_list.append([JSONContent['_id'], JSONContent['display_name'], JSONContent['status'],
                              JSONContent['followers'], JSONContent['views']])
-
+print(channels_list)
 #Now let's format the array into a panda data frame, assign column names, re-define the index column                         
 dataset = pd.DataFrame(channels_list)
 dataset.columns = ['Id', 'Name', 'Status', 'Followers', 'Views']
