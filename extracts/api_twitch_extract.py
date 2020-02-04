@@ -24,7 +24,7 @@ JSONDump = json.dumps(JSONContent, skipkeys=False, ensure_ascii=True, check_circ
 channels = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas",
             "ninja", "shroud", "Dakotaz", "esltv_cs", "pokimane", "tsm_bjergsen", "boxbox", "wtcn", "a_seagull",
            "kinggothalion", "amazhs", "jahrein", "thenadeshot", "sivhd", "kingrichard"]
-
+#print(channels)
 #Now create an empty list that will be populated with the distinct datasets via a loop
 channels_list = []
 
@@ -34,13 +34,15 @@ for channel in channels:
     if 'error' not in JSONContent:
         channels_list.append([JSONContent['_id'], JSONContent['display_name'], JSONContent['status'],
                              JSONContent['followers'], JSONContent['views']])
-print(channels_list)
+#print(channels_list)
+channels_list_ft = json.dumps(channels_list,indent=4)
+print(channels_list_ft)
 #Now let's format the array into a panda data frame, assign column names, re-define the index column                         
 dataset = pd.DataFrame(channels_list)
 dataset.columns = ['Id', 'Name', 'Status', 'Followers', 'Views']
 dataset.dropna(axis = 0, how = 'any', inplace = True)
 dataset.index = pd.RangeIndex(len(dataset.index))
-#dataset_5 = dataset.sample(5)
+dataset_5 = dataset.sample(5)
 #print(dataset_5)
-export_csv = dataset.to_csv(path_or_buf='/home/salexommer/Documents/yellow-submarine/extracts/twitch_sample.csv',index=True)
-print("Export completed")
+#export_csv = dataset.to_csv(path_or_buf='/home/salexommer/Documents/yellow-submarine/extracts/twitch_sample.csv',index=True)
+#print("Export completed")

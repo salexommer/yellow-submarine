@@ -22,24 +22,28 @@ JSONdoccount = pyjq.all('.response .docs | length',JSONdata)[0]
 #now let's extract the relevant fields only
 JSONdataextract = f'.response .docs [] | {{the_snippet: .snippet, the_headline: .headline .main, the_date: .pub_date, the_news_desk: .news_desk}}'
 JSONdataextractoutput = pyjq.all(JSONdataextract, JSONdata)
+#JSONdata_list = JSONdataextractoutput.items(JSONdataextractoutput)
 JSONdataextractoutput_dump = json.dumps(JSONdataextractoutput,indent=4)
-print(JSONdataextractoutput_dump)
+#print(JSONdataextractoutput_dump)
+print(JSONdataextractoutput.items())
 
 #Let's create a different list that contains the values only
 documents = ["the_snippet", "the_headline","the_date","the_news_desk"]
 document_list = []
 for document in documents:
+    JSONContent = requests.get(JSONdataextractoutput + document).json()
     if 'error' not in JSONdataextractoutput:
         document_list.append([
         JSONdataextractoutput['the_snippet'],
         JSONdataextractoutput['the_headline'],
         JSONdataextractoutput['the_date'],
         JSONdataextractoutput['the_news_desk']])
+#print(document_list)
 
 #Finally structure the dataset in a pandas dataframe
 PANDASdataset = pd.DataFrame(document_list)
 PANDASdataset.columns = ['ID','Snippet', 'Headline', 'Publication Date', 'News Section']
 PANDASdataset.dropna(axis=0, how='any',inplace=True)
 #PANDASdataset.index = pd.RangeIndex(len(PANDASdataset.index))
-print(PANDASdataset)
+#print(PANDASdataset)
 #test comment to see how we can push stuff into the repo
