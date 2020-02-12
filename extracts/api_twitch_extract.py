@@ -36,7 +36,7 @@ for channel in channels:
                              JSONContent['followers'], JSONContent['views']])
 #print(channels_list)
 channels_list_ft = json.dumps(channels_list,indent=4)
-print(channels_list_ft)
+#print(channels_list_ft)
 #Now let's format the array into a panda data frame, assign column names, re-define the index column                         
 dataset = pd.DataFrame(channels_list)
 dataset.columns = ['Id', 'Name', 'Status', 'Followers', 'Views']
@@ -44,5 +44,5 @@ dataset.dropna(axis = 0, how = 'any', inplace = True)
 dataset.index = pd.RangeIndex(len(dataset.index))
 dataset_5 = dataset.sample(5)
 #print(dataset_5)
-#export_csv = dataset.to_csv(path_or_buf='/home/salexommer/Documents/yellow-submarine/extracts/twitch_sample.csv',index=True)
-#print("Export completed")
+export_csv = dataset.to_csv(path_or_buf='/home/salexommer/Documents/yellow-submarine/extracts/twitch_sample.csv',index=True)
+print("Export completed")
