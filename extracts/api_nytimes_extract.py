@@ -6,7 +6,6 @@ import numpy as np
 import requests
 import json
 import pyjq
-from pandas.io.json import json_normalize
 
 #Store the twitch api url and retrieve the raw data
 api_key = 'gcpa6XL4z1zLwQXSxW1Y4HniG3zWCWNM'
@@ -20,7 +19,7 @@ JSONdoccount = pyjq.all('.response .docs | length',JSONdata)[0]
 #now let's extract the relevant fields only
 JSONdataextract = f'.response .docs [] | {{the_snippet: .snippet, the_headline: .headline .main, the_date: .pub_date, the_news_desk: .news_desk}}'
 JSONdataextractoutput = pyjq.all(JSONdataextract, JSONdata)
-JSONdataextractoutput_dump = json.dumps(JSONdataextractoutput,indent=4)
+#JSONdataextractoutput_dump = json.dumps(JSONdataextractoutput,indent=4)
 #print(JSONdataextractoutput_dump)
 #print("The total number of documents is " + str(JSONdoccount))
 
