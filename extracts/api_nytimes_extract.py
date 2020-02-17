@@ -10,7 +10,6 @@ import pyjq
 #Store the twitch api url and retrieve the raw data
 api_key = 'gcpa6XL4z1zLwQXSxW1Y4HniG3zWCWNM'
 url = 'https://api.nytimes.com/svc/archive/v1/2020/1.json?&api-key='+api_key
-JSONdata = requests.get(url).json()
 
 #Check the total number of articles in the data extract
 JSONdataheader = pyjq.all('.copyright',JSONdata) 
