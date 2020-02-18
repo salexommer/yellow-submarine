@@ -10,7 +10,7 @@ import pyjq
 today = date.today()
 m1 = int(today.strftime("%m")) #current month
 y1 = int(today.strftime("%Y")) #current year
-y2 = y1 - 2 #two years ago from today
+y2 = y1 - 2 #two years ago from today --temporarily set to 0 if required
 y3 = int(today.strftime("%Y")) #current year
 
 #Store the twitch api url and retrieve the raw data
@@ -29,22 +29,22 @@ while y1 >= y2:
         print("...extracting the data for " + str(m2) + "/"+ str(y1))
         url = 'https://api.nytimes.com/svc/archive/v1/'+str(y1)+'/'+str(m2)+'.json?&api-key='+api_key
         JSONdata = requests.get(url).json()
-        JSONdataheader = pyjq.all('.copyright',JSONdata) 
-        JSONdoccount = pyjq.all('.response .docs | length',JSONdata)[0] #split the JSON by batches
+        JSONdoccount = pyjq.all('.response .docs | length',JSONdata)[0]
         JSONdataextract = f'.response .docs [] | {{the_snippet: .snippet, the_headline: .headline .main, the_date: .pub_date, the_news_desk: .news_desk}}'
         JSONdataextractoutput = pyjq.all(JSONdataextract, JSONdata)
         JSONdataextractoutput_dump = json.dumps(JSONdataextractoutput,indent=4)
+        
         #creating a json extract and keeping it locally
         with open(csv_path+'nyt_month_data_'+str(m2)+str(y1)+'.json','w') as fi:
             fi.write(JSONdataextractoutput_dump)
         jsonurl =csv_path+'nyt_month_data_'+str(m2)+str(y1)+'.json'
+        
+        #re-transforming the json into a Pandas DataFrame and exporting it as a csv
         df = pd.read_json(jsonurl, orient='columns')
-        #re-transforming the json into a csv table
         export_csv = df.to_csv(path_or_buf=csv_path+'nyt_snippet_sample_'+str(m2)+str(y1)+'.csv',index=True)
         print("The total number of extracted NYT snippets stored in this csv for "+ str(m2) + "/"+ str(y1)+ ' is ' + str(JSONdoccount))
         m2 = m2 - 1
     else:
         y1 = y1 - 1
-        #m2 = 12
 else:
     print("Snippets for the past 2 years have been extracted.")
