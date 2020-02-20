@@ -17,7 +17,7 @@ y4 = y3 - y2 #number of years
 
 #Store the twitch api url and retrieve the raw data
 api_key = 'gcpa6XL4z1zLwQXSxW1Y4HniG3zWCWNM'
-csv_path = '/home/salexommer/Documents/yellow-submarine/extracts/'
+csv_path = './yellow-submarine/extracts/'
 
 #A loop to cycle through years & set month
 while y1 >= y2:
