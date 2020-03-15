@@ -17,7 +17,7 @@ y4 = y3 - y2 #number of years
 
 #Store the twitch api url and retrieve the raw data
 api_key = 'gcpa6XL4z1zLwQXSxW1Y4HniG3zWCWNM'
-csv_path = './yellow-submarine/extracts/'
+csv_path = '/home/salexommer/Documents/yellow-submarine/extracts/'
 
 #A loop to cycle through years & set month
 while y1 >= y2:
@@ -36,6 +36,7 @@ while y1 >= y2:
         JSONdataextract = f'.response .docs [] | {{the_snippet: .snippet, the_headline: .headline .main, the_date: .pub_date, the_news_desk: .news_desk}}'
         JSONdataextractoutput = pyjq.all(JSONdataextract, JSONdata)
         JSONdataextractoutput_dump = json.dumps(JSONdataextractoutput,indent=4)
+        #print(JSONdataextractoutput_dump)
 
         #creating a json extract and keeping it locally
         with open(csv_path+'nyt_month_data_'+str(m2)+str(y1)+'.json','w') as fi:
