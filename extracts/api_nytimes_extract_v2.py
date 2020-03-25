@@ -16,8 +16,8 @@ y3 = int(today.strftime("%Y")) #current year
 y4 = y3 - y2 #number of years
 
 #Store the twitch api url and retrieve the raw data
-api_key = 'gcpa6XL4z1zLwQXSxW1Y4HniG3zWCWNM'
-csv_path = '/home/salexommer/Documents/yellow-submarine/extracts/'
+api_key = "Enter your API key here"
+csv_path = 'Enter your csv path here'
 
 #A loop to cycle through years & set month
 while y1 >= y2:
